@@ -1,0 +1,41 @@
+version: '3.7'
+name: inception
+networks:
+  inception_network:
+    driver: bridge
+volumes:
+  wordpress_volume:
+  database_volume:
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_volume:/var/www/
+    depends_on:
+      - wordpress
+    networks:
+      - inception_network
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    expose:
+      - 9000
+    volumes:
+      - wordpress_volume:/var/www/
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    expose:
+      - 3306
+    volumes:
+      - database_volume:/var/lib/mysql/
+    networks:
+      - inception_network
+

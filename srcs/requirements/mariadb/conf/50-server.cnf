@@ -1,5 +1,4 @@
 [mysqld]
-max_allowed_packet = 64M
 datadir = /var/lib/mysql
 bind_address=*
 port = 3306
