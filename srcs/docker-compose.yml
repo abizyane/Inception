@@ -3,21 +3,30 @@ name: inception
 networks:
   inception_network:
     driver: bridge
+    name: inception_network
+
 volumes:
   wordpress_volume:
+    name: wordpress_volume
+    driver: local
+    
   database_volume:
+    name: database_volume
+    driver: local
+
 services:
-  nginx:
-    build: ./requirements/nginx
-    container_name: nginx
-    ports:
-      - "443:443"
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    expose:
+      - 3306
     volumes:
-      - wordpress_volume:/var/www/
-    depends_on:
-      - wordpress
+      - database_volume:/var/lib/mysql/
     networks:
       - inception_network
+    env_file:
+      - .env
+    restart: always
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
@@ -29,13 +38,18 @@ services:
       - mariadb
     networks:
       - inception_network
-  mariadb:
-    build: ./requirements/mariadb
-    container_name: mariadb
-    expose:
-      - 3306
+    env_file:
+      - .env
+    restart: always
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
     volumes:
-      - database_volume:/var/lib/mysql/
+      - wordpress_volume:/var/www/
+    depends_on:
+      - wordpress
     networks:
       - inception_network
-
+    restart: always
