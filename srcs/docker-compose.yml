@@ -9,10 +9,18 @@ volumes:
   wordpress_volume:
     name: wordpress_volume
     driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/abizyane/data/wordpress_volume
+    #   o: bind
     
   database_volume:
     name: database_volume
     driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/abizyane/data/database_volume
+    #   o: bind
 
 services:
   mariadb:
@@ -52,4 +60,14 @@ services:
       - wordpress
     networks:
       - inception_network
+    restart: always
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - inception_network
+    depends_on:
+      - mariadb
     restart: always
