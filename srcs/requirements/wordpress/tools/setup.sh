@@ -25,8 +25,8 @@ if ! wp user get "$WP_N_USER" --field=ID --allow-root > /dev/null 2>&1; then
   wp user create "$WP_N_USER" "$WP_N_EMAIL" --user_pass="$WP_N_PASSWORD" --role="$WP_N_ROLE" --allow-root
 fi
 
-wp theme install neve --allow-root
-wp theme activate neve --allow-root
+wp theme install sydney --allow-root
+wp theme activate sydney --allow-root
 
 if ! wp post get 4 --field=ID --allow-root > /dev/null 2>&1; then
   wp post delete 1 --force --allow-root
@@ -37,6 +37,8 @@ sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.4/fpm/pool.d/www.conf
 
 wp config set WP_REDIS_HOST "$REDIS_HOST" --allow-root
 wp config set WP_REDIS_PORT "$REDIS_PORT" --allow-root
+
+wp config set WP_CACHE true --raw --type=constant --allow-root
 
 wp plugin install redis-cache --allow-root
 wp plugin activate redis-cache --allow-root

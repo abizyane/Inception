@@ -1,36 +1,40 @@
+
 all: build up
 
 build:
-	@docker-compose -f ./srcs/docker-compose.yml build
-# @mkdir -p /home/$(USER)/data/database_volume
-# @mkdir -p /home/$(USER)/data/wordpress_volume
+	@docker-compose -p inception -f ./srcs/docker-compose.yml build
+	@mkdir -p $(HOME)/data/database_volume
+	@mkdir -p $(HOME)/data/wordpress_volume
+
+print:
+	echo $(HOME)
 
 up:
-	@docker-compose -f ./srcs/docker-compose.yml up
+	@docker-compose -p inception -f ./srcs/docker-compose.yml up
 
 down:
-	@docker-compose -f ./srcs/docker-compose.yml down
+	@docker-compose -p inception -f ./srcs/docker-compose.yml down
 
 state:
-	@docker-compose -f ./srcs/docker-compose.yml ps
+	@docker-compose -p inception -f ./srcs/docker-compose.yml ps
 
 pause:
-	@docker-compose -f ./srcs/docker-compose.yml pause
+	@docker-compose -p inception -f ./srcs/docker-compose.yml pause
 
 unpause:
-	@docker-compose -f ./srcs/docker-compose.yml unpause
+	@docker-compose -p inception -f ./srcs/docker-compose.yml unpause
 
 start:
-	@docker-compose -f ./srcs/docker-compose.yml start
+	@docker-compose -p inception -f ./srcs/docker-compose.yml start
 
 stop:
-	@docker-compose -f ./srcs/docker-compose.yml stop
+	@docker-compose -p inception -f ./srcs/docker-compose.yml stop
 
 restart:
-	@docker-compose -f ./srcs/docker-compose.yml restart
+	@docker-compose -p inception -f ./srcs/docker-compose.yml restart
 
 clean: down
-	@docker-compose -f ./srcs/docker-compose.yml rm -f -v -s
+	@docker system prune -f > /dev/null 2>&1 || true
 
 fclean: clean
 	@docker rm -f $$(docker ps -a -q) > /dev/null 2>&1 || true
@@ -38,6 +42,6 @@ fclean: clean
 	@docker network rm $$(docker network ls -q) > /dev/null 2>&1 || true
 	@docker volume rm $$(docker volume ls -q) > /dev/null 2>&1 || true
 	@echo "All containers, images, networks and volumes have been removed."
-#@docker system prune -f > /dev/null 2>&1 || true
-# @rm -rf /home/$(USER)/data
+	@rm -rf $(HOME)/data
+
 re: fclean all

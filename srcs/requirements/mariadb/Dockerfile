@@ -1,9 +1,8 @@
 FROM debian:bullseye
 
-RUN apt update && apt upgrade;\
+RUN apt update && apt full-upgrade -y;\
         apt install -y mariadb-server ;\
         apt clean
-        # apt install -y netcat;\
 
 COPY  /tools/setup.sh /start.sh
 

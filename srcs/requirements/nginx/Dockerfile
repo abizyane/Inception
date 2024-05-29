@@ -1,8 +1,8 @@
 FROM debian:bullseye
 
-RUN apt update && apt upgrade;\
-        apt install -y nginx &&\
-        apt install -y openssl;\
+RUN apt update && apt full-upgrade -y;\
+        apt install -y nginx\
+        openssl;\
         apt clean;\
         mkdir /etc/nginx/ssl &&\
         openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout\

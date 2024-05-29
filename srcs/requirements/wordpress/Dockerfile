@@ -1,12 +1,11 @@
 FROM debian:bullseye
 
-RUN apt update && apt upgrade;\
-        apt install -y curl;\
-        apt install -y unzip;\
-        apt install -y php7.4 &&\
-	apt install -y php7.4-fpm &&\
-	apt install -y php7.4-mysql &&\
-	apt install -y mariadb-client;\
+RUN apt update && apt full-upgrade -y;\
+        apt install -y curl\
+        php7.4\
+	php7.4-fpm\
+	php7.4-mysql\
+	mariadb-client;\
         apt clean;\
         mkdir -p /var/www/wordpress &&\
         chmod -R 755 /var/www/wordpress &&\

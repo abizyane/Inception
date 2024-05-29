@@ -1,28 +1,5 @@
 version: '3.7'
 name: inception
-networks:
-    inception_network:
-        driver: bridge
-        name: inception_network
-
-volumes:
-    wordpress_volume:
-        name: wordpress_volume
-        driver: local
-        # driver_opts:
-        #   type: none
-        #   device: /home/abizyane/data/wordpress_volume
-        #   o: bind    
-    database_volume:
-        name: database_volume
-        driver: local
-        # driver_opts:
-        #   type: none
-        #   device: /home/abizyane/data/database_volume
-        #   o: bind
-    redis_volume:
-        name: redis_volume
-        driver: local
 
 services:
     mariadb:
@@ -80,20 +57,51 @@ services:
           - 6379
         networks:
           - inception_network
-        volumes:
-          - redis_volume:/data
+        depends_on:
+          - wordpress
         restart: always
-    # ftpserver:
-    #     build: ./requirements/bonus/ftpserver
-    #     container_name: ftpserver
-    #     ports:
-    #       - "21:21"
-    #       - "21000-21010:21000-21010"
-    #     networks:
-    #       - inception_network
-    #     depends_on:
-    #       - wordpress
-    #     volumes:
-    #       - wordpress_volume:/var/www/
-    #     restart: always
-  
+    website:
+        build: ./requirements/bonus/website
+        container_name: website
+        ports:
+          - "80:80"
+        networks:
+          - inception_network
+        depends_on:
+          - wordpress
+        restart: always
+    ftp:
+        build: ./requirements/bonus/ftp
+        container_name: ftp
+        env_file:
+          - .env
+        ports:
+          - "21:21"
+          - "21000-21010:21000-21010"
+        networks:
+          - inception_network
+        volumes:
+          - wordpress_volume:/var/www
+        restart: always
+
+
+networks:
+    inception_network:
+        driver: bridge
+        name: inception_network
+
+volumes:
+    wordpress_volume:
+        name: wordpress_volume
+        driver: local
+        driver_opts:
+          type: none
+          device: /Users/abizyane/data/wordpress_volume
+          o: bind    
+    database_volume:
+        name: database_volume
+        driver: local
+        driver_opts:
+          type: none
+          device: /Users/abizyane/data/database_volume
+          o: bind
