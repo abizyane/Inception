@@ -5,7 +5,8 @@ RUN apt update && apt full-upgrade -y &&\
     apt clean
 
 COPY ./tools/setup.sh /setup.sh
+COPY ./conf/vsftpd.conf /etc/vsftpd.conf
 
 RUN chmod +x /setup.sh
 
-CMD ["bash"]
+CMD ["sh", "/setup.sh"]

@@ -3,11 +3,14 @@ all: build up
 
 build:
 	@docker-compose -p inception -f ./srcs/docker-compose.yml build
-	@mkdir -p $(HOME)/data/database_volume
-	@mkdir -p $(HOME)/data/wordpress_volume
+	@mkdir -p /Users/abizyane/data/database_volume
+	@mkdir -p /Users/abizyane/data/wordpress_volume
 
-print:
-	echo $(HOME)
+mand:
+	@docker-compose -p inception -f ./srcs/docker-compose.yml build mariadb wordpress redis nginx
+	@mkdir -p /Users/abizyane/data/database_volume
+	@mkdir -p /Users/abizyane/data/wordpress_volume
+	@docker-compose -p inception -f ./srcs/docker-compose.yml up mariadb wordpress redis nginx
 
 up:
 	@docker-compose -p inception -f ./srcs/docker-compose.yml up
@@ -17,12 +20,6 @@ down:
 
 state:
 	@docker-compose -p inception -f ./srcs/docker-compose.yml ps
-
-pause:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml pause
-
-unpause:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml unpause
 
 start:
 	@docker-compose -p inception -f ./srcs/docker-compose.yml start
@@ -42,6 +39,6 @@ fclean: clean
 	@docker network rm $$(docker network ls -q) > /dev/null 2>&1 || true
 	@docker volume rm $$(docker volume ls -q) > /dev/null 2>&1 || true
 	@echo "All containers, images, networks and volumes have been removed."
-	@rm -rf $(HOME)/data
+	@rm -rf /Users/abizyane/data
 
 re: fclean all
