@@ -38,6 +38,7 @@ fclean: clean
 	@docker rmi -f $$(docker images -a -q) > /dev/null 2>&1 || true
 	@docker network rm $$(docker network ls -q) > /dev/null 2>&1 || true
 	@docker volume rm $$(docker volume ls -q) > /dev/null 2>&1 || true
+	@docker system prune -af > /dev/null 2>&1 || true
 	@echo "All containers, images, networks and volumes have been removed."
 	@rm -rf /Users/abizyane/data
 
