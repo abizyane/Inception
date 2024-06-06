@@ -30,6 +30,9 @@ stop:
 restart:
 	@docker-compose -p inception -f ./srcs/docker-compose.yml restart
 
+logs:
+	@docker-compose -p inception -f ./srcs/docker-compose.yml logs
+
 clean: down
 	@docker system prune -f > /dev/null 2>&1 || true
 

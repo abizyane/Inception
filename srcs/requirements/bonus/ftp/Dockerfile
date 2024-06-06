@@ -9,4 +9,4 @@ COPY ./conf/vsftpd.conf /etc/vsftpd.conf
 
 RUN chmod +x /setup.sh
 
-CMD ["sh", "/setup.sh"]
+CMD ["bash", "/setup.sh"]

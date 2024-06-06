@@ -48,4 +48,4 @@ mkdir -p /run/php
 
 echo "The WordPress website is ready!"
 
-/usr/sbin/php-fpm7.4 -F
+exec /usr/sbin/php-fpm7.4 -F
