@@ -6,7 +6,7 @@ RUN apt update && apt full-upgrade -y &&\
     php-mysql &&\
     apt clean;\
     mkdir -p /var/www/html &&\
-    wget -O /var/www/html/adminer.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
+    wget -O /var/www/html/index.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
     
 COPY ./tools/adminer.css /var/www/html/adminer.css
 

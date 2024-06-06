@@ -24,4 +24,4 @@ chown $FTP_USER:$FTP_USER /var/run/vsftpd/empty
 
 chmod a-w /var/www
 
-/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf 
+/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
