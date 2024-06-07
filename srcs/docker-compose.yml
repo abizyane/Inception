@@ -104,6 +104,19 @@ services:
         volumes:
           - wordpress_volume:/var/www
         restart: unless-stopped
+    portainer:
+        build: ./requirements/bonus/portainer
+        container_name: portainer
+        env_file:
+          - .env
+        ports:
+          - "9000:9000"
+        networks:
+          - inception_network
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+        restart: unless-stopped
+    
     # smtp:
     #     build: ./requirements/bonus/smtp
     #     container_name: smtp

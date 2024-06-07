@@ -33,7 +33,7 @@ if ! wp post get 4 --field=ID --allow-root > /dev/null 2>&1; then
   wp post create --post_type=post --post_status=publish --post_title='This is just a test, It Works!!!' --post_content='Hello, I am Achraf, a software developer studying at 1337' --allow-root
 fi
 
-sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.4/fpm/pool.d/www.conf
+sed -i '36 s*/run/php/php7.4-fpm.sock*9000*' /etc/php/7.4/fpm/pool.d/www.conf
 
 wp config set WP_REDIS_HOST "$REDIS_HOST" --allow-root
 wp config set WP_REDIS_PORT "$REDIS_PORT" --allow-root
