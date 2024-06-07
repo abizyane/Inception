@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt update && apt full-upgrade -y &&\
     apt install -y wget\
-    tar &&\
+    tar curl &&\
     wget https://github.com/portainer/portainer/releases/download/2.19.5/portainer-2.19.5-linux-amd64.tar.gz &&\
     tar -xvf portainer-2.19.5-linux-amd64.tar.gz &&\
     rm -rf portainer-2.19.5-linux-amd64.tar.gz &&\
