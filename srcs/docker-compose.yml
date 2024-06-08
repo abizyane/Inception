@@ -90,6 +90,8 @@ services:
           - inception_network
         depends_on:
           - wordpress
+        volumes:
+          - ./requirements/bonus/website/tools:/var/www/html
         restart: unless-stopped
     ftp:
         build: ./requirements/bonus/ftp
