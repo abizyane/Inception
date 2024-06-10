@@ -1,48 +1,50 @@
+DC_CMD = @docker-compose -p inception -f ./srcs/docker-compose.yml
+DATA_PATH = /Users/abizyane/data
 
 all: build up
 
 build:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml build
-	@mkdir -p /Users/abizyane/data/database_volume
-	@mkdir -p /Users/abizyane/data/wordpress_volume
+	$(DC_CMD) build
+	@mkdir -p $(DATA_PATH)/database_volume
+	@mkdir -p $(DATA_PATH)/wordpress_volume
 
 mand:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml build mariadb wordpress redis nginx
-	@mkdir -p /Users/abizyane/data/database_volume
-	@mkdir -p /Users/abizyane/data/wordpress_volume
-	@docker-compose -p inception -f ./srcs/docker-compose.yml up mariadb wordpress redis nginx
+	$(DC_CMD) build mariadb wordpress redis nginx
+	@mkdir -p $(DATA_PATH)/database_volume
+	@mkdir -p $(DATA_PATH)/wordpress_volume
+	$(DC_CMD) up mariadb wordpress redis nginx
 
 up:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml up
+	$(DC_CMD) up 
 
-down:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml down
+down: 
+	$(DC_CMD) down
 
 state:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml ps
+	$(DC_CMD) ps
 
 start:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml start
+	$(DC_CMD) start
 
 stop:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml stop
+	$(DC_CMD) stop
 
 restart:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml restart
+	$(DC_CMD) restart
 
 logs:
-	@docker-compose -p inception -f ./srcs/docker-compose.yml logs
+	$(DC_CMD) logs
 
 clean: down
-	@docker system prune -f > /dev/null 2>&1 || true
+	@docker system prune -f > /dev/null 2>&1
 
 fclean: clean
-	@docker rm -f $$(docker ps -a -q) > /dev/null 2>&1 || true
-	@docker rmi -f $$(docker images -a -q) > /dev/null 2>&1 || true
-	@docker network rm $$(docker network ls -q) > /dev/null 2>&1 || true
-	@docker volume rm $$(docker volume ls -q) > /dev/null 2>&1 || true
-	@docker system prune -af > /dev/null 2>&1 || true
+	@docker rm -f $$(docker ps -a -q) > /dev/null 2>&1
+	@docker rmi -f $$(docker images -a -q) > /dev/null 2>&1
+	@docker network rm $$(docker network ls -q) > /dev/null 2>&1
+	@docker volume rm $$(docker volume ls -q) > /dev/null 2>&1
+	@docker system prune -af > /dev/null 2>&1
 	@echo "All containers, images, networks and volumes have been removed."
-	@rm -rf /Users/abizyane/data
+	@rm -rf $(DATA_PATH)
 
 re: fclean all

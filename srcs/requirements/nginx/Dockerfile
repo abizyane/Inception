@@ -10,6 +10,4 @@ RUN apt update && apt full-upgrade -y;\
         
 COPY  ./conf/nginx.conf /etc/nginx/sites-available/default
 
-COPY  ./tools/index.html /var/www/index.html
-
 CMD ["nginx", "-g", "daemon off;"]
