@@ -11,9 +11,9 @@ else
 
     chown $FTP_USER:$FTP_USER /var/www
     
-    rm -rf /etc/vsftpd/
-    
-    mkdir /etc/vsftpd
+    rm -rf /etc/vsftpd
+
+    mkdir -p /etc/vsftpd
     
     mv /etc/vsftpd.conf /etc/vsftpd/vsftpd.conf
     
@@ -25,5 +25,7 @@ else
     
     chmod a-w /var/www
 fi
+
+echo "FTP is ready!"
 
 exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

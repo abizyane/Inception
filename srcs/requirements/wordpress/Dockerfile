@@ -7,9 +7,9 @@ RUN apt update && apt full-upgrade -y;\
 	php7.4-mysql\
 	mariadb-client;\
         apt clean;\
-        mkdir -p /var/www/wordpress &&\
-        chmod -R 755 /var/www/wordpress &&\
-        chown -R www-data:www-data /var/www/wordpress
+        mkdir -p /var/www &&\
+        chmod -R 755 /var/www &&\
+        chown -R www-data:www-data /var/www
 
 COPY  /tools/setup.sh /start.sh
 

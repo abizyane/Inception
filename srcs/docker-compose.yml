@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 networks:
     inception_network:
@@ -9,17 +9,17 @@ volumes:
     wordpress_volume:
         name: wordpress_volume
         driver: local
-        # driver_opts:
-        #   type: none
-        #   device: /Users/abizyane/data/wordpress_volume
-        #   o: bind
+        driver_opts:
+          type: none
+          device: /home/${USER}/data/wordpress_volume
+          o: bind
     database_volume:
         name: database_volume
         driver: local
-        # driver_opts:
-        #   type: none
-        #   device: /Users/abizyane/data/database_volume
-        #   o: bind
+        driver_opts:
+          type: none
+          device: /home/${USER}/data/database_volume
+          o: bind
 
 services:
     mariadb:
@@ -94,8 +94,6 @@ services:
           - inception_network
         depends_on:
           - wordpress
-        volumes:
-          - ./requirements/bonus/website/tools:/var/www/html
         restart: unless-stopped
 
     ftp:
@@ -124,38 +122,3 @@ services:
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         restart: unless-stopped
-
-
-# 1. **How Docker and Docker Compose work:**
-
-#    Docker is a platform that allows you to develop, ship, and run applications inside containers.
-#     A container is a standalone executable package that includes everything needed to run an application - the code,
-#     a runtime, libraries, environment variables, and config files. Containers are isolated from each other and bundle their own software,
-#     libraries and configuration files; they can communicate with each other through well-defined channels.
-#    Docker Compose is a tool for defining and managing multi-container Docker applications.
-#    It uses a YAML file (docker-compose.yml) to configure your application’s services,
-#     and then creates and starts all the services from your configuration with a single command (`docker-compose up`).
-
-# 2. **Difference between a Docker image used with Docker Compose and without Docker Compose:**
-
-#    A Docker image is a lightweight, standalone, executable package that includes everything needed to run a piece of software,
-#     including the code, a runtime, libraries, environment variables, and config files.
-
-#    Whether you use Docker Compose or not, the Docker image remains the same.
-#     The difference lies in how the image is run. Without Docker Compose, you would use the `docker run` command to run the image as a container.
-#     With Docker Compose, the image is run as a service defined in the docker-compose.yml file.
-#     Docker Compose is especially useful when your application is made up of multiple services (and thus multiple Docker images),
-#     as it allows you to manage these services in a coordinated way.
-
-# 3. **The benefit of Docker compared to VMs:**
-
-#    Docker containers are more lightweight than virtual machines. While VMs virtualize the hardware,
-#     meaning each VM runs a full-blown OS, Docker containers virtualize the operating system,
-#     sharing the OS kernel while keeping the application and its dependencies isolated. This makes Docker containers faster to start,
-#     less resource-intensive, and easier to manage.
-
-#    Docker also provides a consistent environment, which can be shared and replicated across different stages of the development lifecycle,
-#     reducing "it works on my machine" type of problems. 
-
-#    Finally, Docker has a vast ecosystem and community which provides a large number of pre-built images for various applications,
-#     which can speed up development and deployment.
