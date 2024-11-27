@@ -1,0 +1,32 @@
+
+DOMAIN_NAME=localhost
+
+# MYSQL SETUP
+MYSQL_DATABASE=wordpress_db
+MYSQL_USER=user
+MYSQL_PASSWORD=changeme
+
+# WORDPRESS SETUP
+WP_TITLE=Inception
+WP_HOST=mariadb
+WP_USER=user
+WP_PASSWORD=changeme
+WP_EMAIL=mail@mail.com
+
+WP_N_USER=suser
+WP_N_PASSWORD=changeme
+WP_N_EMAIL=place@holder.com
+WP_N_ROLE=author
+
+# FTP SETUP
+FTP_USER=user
+FTP_PASSWORD=changeme
+FTP_LOCAL_DIR=/etc/www
+
+# REDIS SETUP
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+# PORTAINER SETUP
+PORTAINER_NAME=admin
+PORTAINER_PASS=changeme123456

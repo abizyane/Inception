@@ -1,14 +1,14 @@
 DC_CMD = @docker-compose -p inception -f ./srcs/docker-compose.yml
-DATA_PATH = /home/$(USER)/data
+DATA_PATH = /Users/abizyane/goinfre/data
 
 all: build up
 
 build:
 	$(DC_CMD) build
-	@mkdir -p $(DATA_PATH)/database_volume
-	@mkdir -p $(DATA_PATH)/wordpress_volume
 
 up:
+	@mkdir -p $(DATA_PATH)/database_volume
+	@mkdir -p $(DATA_PATH)/wordpress_volume
 	$(DC_CMD) up
 
 down: 

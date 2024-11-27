@@ -7,19 +7,19 @@ networks:
 
 volumes:
     wordpress_volume:
-        name: wordpress_volume
-        driver: local
-        driver_opts:
-          type: none
-          device: /home/${USER}/data/wordpress_volume
-          o: bind
+    #     name: wordpress_volume
+    #     driver: local
+    #     driver_opts:
+    #       type: none
+    #       device: /Users/abizyane/goinfre/data/wordpress_volume
+    #       o: bind
     database_volume:
-        name: database_volume
-        driver: local
-        driver_opts:
-          type: none
-          device: /home/${USER}/data/database_volume
-          o: bind
+    #     name: database_volume
+    #     driver: local
+    #     driver_opts:
+    #       type: none
+    #       device: /Users/abizyane/goinfre/data/database_volume
+    #       o: bind
 
 services:
     mariadb:
